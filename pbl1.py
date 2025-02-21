@@ -33,7 +33,6 @@ def update_todos(todos):
         try:
             choose = int(input("Choose your todo(0 for exit): "))
             print(f"Your todo is {todos[choose-1]}")
-            
             if choose == 0 :
                 break
             elif choose > 0:
@@ -46,7 +45,7 @@ def update_todos(todos):
 
 #showtodos
 def show_todos(todos):
-    if len(todos) <= 0:
+    if len(todos) >= 0:
         for i,v in enumerate(todos,1):
             print(f"{i}. {v}")
     else:
@@ -74,12 +73,30 @@ if __name__ == "__main__":
     todos = load_todos()
     todos_todos = todos["todos"]
     print("Welcome to out todo app aplication")
-    list_menu()
     while True:
-        choose_menu = int(input("Enter the menu"))
+        list_menu()
+        choose_menu = int(input("Enter the menu: "))
         match choose_menu:
             case 1:
                 todos = add_todos(todos_todos)
+                save_todos(todos)
             case 2:
                 todos = update_todos(todos_todos)
+                save_todos(todos)
+            case 3:
+                print("#####################")
+                show_todos(todos_todos)
+                print("#####################")
+            case 4:
+                todos= delete_todos(todos)
+            case 5:
+                todos = delete_all_todos(todos)
+            case 6:
+                confirm = input("Are you sure want to quit program? (Y/N)").upper()
+                if confirm == "Y":
+                    exit()
+                elif confirm == "N":
+                    break
+                else:
+                    print("nothing todo invalid input")
     
